@@ -13,11 +13,11 @@ class Menu:
         self.estacionamiento = Estacionamiento()
         self.opciones= {
             "1":self.Ingresar_Vehiculo,
-            #"2":self.despachar_Vehiculo,
-            #"3":self.resumen_Ingresado,
-            #"4":self.resumen_salido,
-            #"5":self.resumen_ganancia,
-            #"6":self.salir
+            "2":self.despachar_Vehiculo,
+            "3":self.resumen_Ingresado,
+            "4":self.resumen_salido,
+            "5":self.resumen_ganancia,
+            "6":self.salir
         }
 
     def desplegar_menu(self):
@@ -54,6 +54,29 @@ class Menu:
         plus_five_hours = datetime.now() 
         #placa = input ("Ingrese la placa del vehículo")
         self.estacionamiento.guardar(placa,marca,modelo,tipo,plus_five_hours)
+
+    def resumen_Ingresado(self):
+        """ Retorna una lista de vehiculos ingresados"""
+        self.estacionamiento.ver_Resumen(True)
+        
+    def resumen_salido(self):
+        """Retorna una lista de vehiculos que ya no se encuentran 
+        alojados dentro del estacionamiento"""
+        self.estacionamiento.ver_Resumen(False)
+
+    def despachar_Vehiculo(self):
+        placa = input ("""ingrese el número de placa del vehiculo 
+        que va a despachar: """)
+        hora_salida = datetime.now() + timedelta(hours=5)
+        self.estacionamiento.despachar(placa,hora_salida)
+    
+    
+    def salir(self):
+        """Cierra la app"""
+        sys.exit(0)
+    
+    def resumen_ganancia(self):
+        self.estacionamiento.gana()
 
 if __name__ == "__main__":
     menu = Menu()
